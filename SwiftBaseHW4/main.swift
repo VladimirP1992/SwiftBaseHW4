@@ -7,5 +7,35 @@
 
 import Foundation
 
-print("Hello, World!")
+enum EngineActions {
+    case start, stop
+}
 
+class Car {
+    let model: String
+    let year: Int
+    var isEngineRunning: Bool = false
+    
+    init(model: String, year: Int) {
+        self.model = model
+        self.year = year
+    }
+    
+    func actionToEngine(action: EngineActions) {
+        switch action {
+        case .start:
+            isEngineRunning = true
+        case .stop:
+            isEngineRunning = false
+        }
+    }
+    
+    func getStatus() {
+        print("Car  specification:\n model = \(model), year = \(year)")
+        print("Car status:\n engine is running = \(isEngineRunning)")
+    }
+}
+
+let car = Car(model: "base", year: 2000)
+
+car.getStatus()
