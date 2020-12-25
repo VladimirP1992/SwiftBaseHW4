@@ -12,14 +12,10 @@ enum EngineActions {
     case start, stop
 }
 
-//TrunkCar action
-enum BodyLift {
-    case up, down
-}
-
-//SportCar action
-enum EngineAcceleration {
-    case on, off
+//TrunkCar and SportCar actions
+enum SpecificActions {
+    case liftBodyUp, liftBodyDown
+    case accelerateEngineOn, accelerateEngineOff
 }
 
 //Super class
@@ -42,7 +38,7 @@ class Car {
         }
     }
     
-    func specificAction() {
+    func specificAction(action: SpecificActions) {
         //Do nothing
     }
     
@@ -52,7 +48,36 @@ class Car {
     }
 }
 
-
+class TrunkCar: Car {
+    
+    let numberOfAxles: Int
+    var isBodyLiftedUp: Bool = false
+    
+    init(model: String, year: Int, numberOfAxles: Int) {
+        self.numberOfAxles = numberOfAxles
+        super.init(model: model, year: year)
+    }
+    
+    override func specificAction(action: SpecificActions) {
+        switch  action {
+        case .liftBodyUp:
+            isBodyLiftedUp = true
+            print("TrunkCars body was lifted up")
+        case .liftBodyDown:
+            isBodyLiftedUp = false
+            print("TrunkCars body was lifted down")
+        case .accelerateEngineOn:
+            print("TrunkCar has no such option!")
+        case .accelerateEngineOff:
+            print("TrunkCar has no such option!")
+        }
+    }
+    
+    override func getStatus() {
+        super.getStatus()
+        print("Body is lifted up = \(isBodyLiftedUp)")
+    }
+}
 
 let car = Car(model: "base", year: 2000)
 car.getStatus()
