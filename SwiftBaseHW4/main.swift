@@ -76,10 +76,53 @@ class TrunkCar: Car {
     override func getStatus() {
         super.getStatus()
         print("Body is lifted up = \(isBodyLiftedUp)")
+        print("Number of axles = \(numberOfAxles)")
+    }
+}
+
+class SportCar: Car {
+    
+    let numberOfSeats: Int
+    var isEngineAccelerationOn: Bool = false
+    
+    init(model: String, year: Int, numberOfSeats: Int) {
+        self.numberOfSeats = numberOfSeats
+        super.init(model: model, year: year)
+    }
+    
+    override func specificAction(action: SpecificActions) {
+        switch  action {
+        case .liftBodyUp:
+            print("SportCar has no such option!")
+        case .liftBodyDown:
+            print("SportCar has no such option!")
+        case .accelerateEngineOn:
+            isEngineAccelerationOn = true
+            print("SportCars engine acceleration turned on")
+        case .accelerateEngineOff:
+            isEngineAccelerationOn = false
+            print("SportCars engine acceleration turned off")
+        }
+    }
+    
+    override func getStatus() {
+        super.getStatus()
+        print("Engine acceleration turned on = \(isEngineAccelerationOn)")
+        print("Number of seats = \(numberOfSeats)")
     }
 }
 
 let car = Car(model: "base", year: 2000)
 car.getStatus()
+print()
 
+let trunkCar = TrunkCar(model: "Ford", year: 2005, numberOfAxles: 4)
+trunkCar.specificAction(action: .liftBodyUp)
+trunkCar.getStatus()
+print()
+
+let sportCar = SportCar(model: "Ferrari", year: 2020, numberOfSeats: 1)
+sportCar.actionToEngine(action: .start)
+sportCar.specificAction(action: .accelerateEngineOn)
+sportCar.getStatus()
 
